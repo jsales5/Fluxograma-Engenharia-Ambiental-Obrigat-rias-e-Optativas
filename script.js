@@ -1,201 +1,243 @@
-// ======================================================
-// AGRUPAMENTO POR TEMAS
-// ======================================================
+document.addEventListener("DOMContentLoaded", () => {
 
-const temas = {
-    "Sustentabilidade": [
-        "CDS0007", "CDS0008", "CET0039", "GEA0068",
-        "ENC0281"
-    ],
-    "Biologia e Bioquímica": [
-        "CEL0019", "CEL0054", "ENC0018"
-    ],
-    "Computação e Modelagem": [
-        "CIC0007", "ENC0011", "ENC0022", "ENC0039",
-        "ENC0162"
-    ],
-    "Ecologia / Recursos Naturais": [
-        "ECL0030", "ECL0036", "ENC0012", "ENC0033",
-        "ENC0253"
-    ],
-    "Hidráulica / Recursos Hídricos": [
-        "ENC0017", "ENC0021", "ENC0032", "ENC0064",
-        "ENC0165", "ENC0169", "ENC0172", "ENC0180",
-        "ENC0182", "ENC0187", "ENC0245", "ENC0282"
-    ],
-    "Saneamento e Poluição": [
-        "ENC0003", "ENC0014", "ENC0019", "ENC0020",
-        "ENC0051"
-    ],
-    "Geotecnia e Solos": [
-        "ENC0188", "ENC0237", "ENC0238", "ENC0279",
-        "ENC0050"
-    ],
-    "Urbanismo / Território": [
-        "ENC0034", "ENC0208", "TAU0013"
-    ],
-    "Energia": [
-        "FAV0215", "ENM0174", "ENE0273"
-    ],
-    "Matemática / Química": [
-        "MAT0028", "MAT0048", "IQD0051", "IQD0063",
-        "IQD0118", "IQD0282"
-    ],
-    "Extensão e Atividades Complementares": [
-        "DEG0200", "DEG0201", "DEG0202", "DEG0203",
-        "DEG0205", "DEG0206",
-        "DEX0196", "DEX0197", "DEX0198", "DEX0199",
-        "DEX0200", "DEX0201"
-    ],
-    "Comunicação e Libras": [
-        "LIP0096", "LIP0174"
-    ]
-};
+    const matriz = {
 
-// ======================================================
-// PRÉ-REQUISITOS
-// ======================================================
+        // -----------------------------------------
+        // OBRIGATÓRIAS POR SEMESTRE / NÍVEL
+        // -----------------------------------------
 
-const prerequisitos = {
-    "CDS0007": [],
-    "CDS0008": ["CDS0007"],
+        "1º Nível": [
+            { codigo: "CEL0088", nome: "BIOLOGIA GERAL", prereq: [] },
+            { codigo: "ENC0263", nome: "INTRODUÇÃO À ENGENHARIA AMBIENTAL", prereq: [] },
+            { codigo: "IFD0171", nome: "FISICA 1", prereq: [] },
+            { codigo: "IFD0173", nome: "FISICA 1 EXPERIMENTAL", prereq: [] },
+            { codigo: "IGD0173", nome: "GEOLOGIA BÁSICA", prereq: [] },
+            { codigo: "IQD0125", nome: "QUIMICA GERAL TEORICA", prereq: [] },
+            { codigo: "MAT0025", nome: "CÁLCULO 1", prereq: [] }
+        ],
 
-    "CEL0019": ["IQD0051"],
-    "CEL0054": ["IQD0072","IQD0095","IQD0209","IQD0252","IQD0245","IQD0131","IQD0051","CEL0067","IQD0153","IQD0058","IQD0061","IQD0125"],
+        "2º Nível": [
+            { codigo: "ECL0033", nome: "ECOLOGIA 1", prereq: ["CEL0088"] },
+            { codigo: "ENC0053", nome: "DESENHO TECNICO", prereq: [] },
+            { codigo: "IFD0175", nome: "FISICA 2", prereq: ["IFD0171","IFD0173","MAT0025"] },
+            { codigo: "IFD0177", nome: "FISICA 2 EXPERIMENTAL", prereq: ["IFD0171","IFD0173","MAT0025"] },
+            { codigo: "MAT0026", nome: "CÁLCULO 2", prereq: ["MAT0025"] },
+            { codigo: "MAT0031", nome: "INTRODUCAO A ALGEBRA LINEAR", prereq: [] }
+        ],
 
-    "CIC0007": [],
+        "3º Nível": [
+            { codigo: "ENC0035", nome: "INTRODUÇÃO À MECÂNICA DOS SÓLIDOS", prereq: ["IFD0171"] },
+            { codigo: "ENC0240", nome: "LABORATÓRIO DE GEOTECNIA 1", prereq: ["IGD0173"] },
+            { codigo: "ENC0241", nome: "GEOTECNIA 1", prereq: ["IGD0173"] },
+            { codigo: "ENC0266", nome: "CLIMATOLOGIA APLICADA", prereq: [] },
+            { codigo: "ENC0267", nome: "CARTOGRAFIA E GEOPROCESSAMENTO APLICADO", prereq: [] },
+            { codigo: "ENC0268", nome: "CIÊNCIA DOS MATERIAIS", prereq: [] },
+            { codigo: "MAT0027", nome: "CÁLCULO 3", prereq: ["MAT0026"] }
+        ],
 
-    "CET0039": [],
-    "DEG0200": [], "DEG0201": [], "DEG0202": [], "DEG0203": [],
-    "DEG0205": [], "DEG0206": [],
+        "4º Nível": [
+            { codigo: "ENC0037", nome: "TRANSFERÊNCIA DE ENERGIA E MASSA", prereq: ["MAT0027"] },
+            { codigo: "ENC0235", nome: "GEOTECNIA 2", prereq: ["ENC0241"] },
+            { codigo: "ENC0269", nome: "MICROBIOLOGIA AMBIENTAL", prereq: [] },
+            { codigo: "ENC0270", nome: "MICROBIOLOGIA AMBIENTAL E EXPERIMENTAL", prereq: ["ENC0269"] },
+            { codigo: "ENC0272", nome: "ASPECTOS QUÍMICOS DE QUALIDADE DA ÁGUA", prereq: [] },
+            { codigo: "ENC0273", nome: "ASPECTOS QUÍMICOS DE QUALIDADE DE ÁGUA - EXPERIMENTAL", prereq: ["ENC0272"] }
+        ],
 
-    "DEX0196": [], "DEX0197": [], "DEX0198": [], "DEX0199": [],
-    "DEX0200": [], "DEX0201": [],
+        "5º Nível": [
+            { codigo: "ENC0183", nome: "GEOTECNIA AMBIENTAL", prereq: ["ENC0241"] },
+            { codigo: "ENC0251", nome: "HIDRAULICA - TEORIA", prereq: [] },
+            { codigo: "ENC0252", nome: "HIDRAULICA EXPERIMENTAL", prereq: ["ENC0251"] },
+            { codigo: "ENC0274", nome: "ESTATÍSTICA APLICADA À ENGENHARIA AMBIENTAL", prereq: [] },
+            { codigo: "ENC0275", nome: "MÉTODOS COMPUTACIONAIS EM ENGENHARIA AMBIENTAL", prereq: [] },
+            { codigo: "SOL0042", nome: "INTRODUÇÃO À SOCIOLOGIA", prereq: [] }
+        ],
 
-    "ECL0030": [],
-    "ECL0036": [],
+        "6º Nível": [
+            { codigo: "ENC0001", nome: "CINÉTICA, PROCESSOS E OPERAÇÕES UNITÁRIAS", prereq: [] },
+            { codigo: "ENC0002", nome: "ASPECTOS ECONÔMICOS DA ENGENHARIA AMBIENTAL", prereq: [] },
+            { codigo: "ENC0166", nome: "HIDROLOGIA APLICADA", prereq: [] },
+            { codigo: "ENE0001", nome: "ELETRICIDADE BÁSICA", prereq: [] },
+            { codigo: "EPR0068", nome: "ORGANIZAÇÃO INDUSTRIAL", prereq: [] }
+        ],
 
-    "EFL0010": [],
+        "7º Nível": [
+            { codigo: "ENC0004", nome: "SANEAMENTO, MEIO AMBIENTE E PLANEJAMENTO URBANO", prereq: [] },
+            { codigo: "ENC0007", nome: "TRATAMENTO DE ÁGUAS RESIDUÁRIAS URBANAS", prereq: [] },
+            { codigo: "ENC0010", nome: "TRATAMENTO DE ÁGUA PARA CONSUMO HUMANO", prereq: [] },
+            { codigo: "ENC0052", nome: "RESÍDUOS SÓLIDOS URBANOS", prereq: [] },
+            { codigo: "EPR0059", nome: "HIGIENE E SEGURANÇA DO TRABALHO", prereq: [] },
+            { codigo: "FDD0282", nome: "FUNDAMENTOS DO DIREITO AMBIENTAL", prereq: [] }
+        ],
 
-    "ENC0003": ["ENC0269","SOL0042"],
-    "ENC0011": ["ENC0166","ENC0275"],
-    "ENC0012": ["ENC0269"],
-    "ENC0014": ["ENC0266","ENM0080","ENM0140","ENC0037"],
-    "ENC0017": ["ENC0235"],
-    "ENC0018": ["ENC0269","IQD0125"],
-    "ENC0019": ["ENC0251","ENC0001","ENC0168"],
-    "ENC0020": ["ENC0251","ENC0001","ENC0168"],
-    "ENC0021": ["ENC0016"],
-    "ENC0022": ["ENC0166","ENC0016","ENC0015"],
-    "ENC0023": ["ENC0026","ENC0267"],
-    "ENC0032": ["ENC0016"],
-    "ENC0033": ["ENC0183"],
-    "ENC0034": [],
-    "ENC0044": [],
-    "ENC0046": [],
-    "ENC0050": ["ENC0235"],
-    "ENC0051": ["ENC0169","ENC0251","ENC0252"],
-    "ENC0064": ["ENC0251","ENC0252"],
-    "ENC0162": ["ENC0166","ENC0167","ENC0251","ENC0252"],
-    "ENC0165": ["ENC0166","ENC0167","ENC0251","ENC0252"],
-    "ENC0169": ["ENC0166","ENC0167","ENC0251","ENC0252"],
-    "ENC0172": ["ENC0166","ENC0167","ENC0251","ENC0252"],
-    "ENC0180": [],
-    "ENC0182": ["ENC0167","ENC0251","ENC0252"],
-    "ENC0187": ["ENC0166","ENC0167","ENC0251","ENC0252"],
-    "ENC0188": ["ENC0195","ENC0249","ENC0250","ENC0241","ENC0240"],
-    "ENC0208": [],
-    "ENC0237": ["ENC0235"],
-    "ENC0238": ["ENC0240","ENC0241"],
-    "ENC0239": ["ENC0197","ENC0235","ENC0121"],
-    "ENC0245": ["ENC0166","ENC0167","ENC0251","ENC0252"],
-    "ENC0253": ["ECL0014","ECL0033","ECL0030"],
-    "ENC0256": [],
-    "ENC0261": ["ENC0246","ENM0143","ENE0155","EFL0010","ENE0274","ENM0133","ENC0263"],
-    "ENC0264": ["ENC0227","ENC0267"],
-    "ENC0271": ["TEC0026","ENC0268"],
-    "ENC0279": ["ENM0080","ENC0235","ENC0037"],
-    "ENC0281": ["ENC0268","ENC0052"],
-    "ENC0282": ["ENC0166"],
+        "8º Nível": [
+            { codigo: "ENC0013", nome: "INTRODUÇÃO À ANÁLISE DE SISTEMAS AMBIENTAIS", prereq: [] },
+            { codigo: "ENC0015", nome: "AVALIAÇÃO E CONTROLE DE POLUIÇÃO DA ÁGUA", prereq: [] },
+            { codigo: "ENC0016", nome: "AVALIAÇÃO E CONTROLE DE POLUIÇÃO DO SOLO", prereq: [] },
+            { codigo: "ENC0025", nome: "ESTÁGIO CURRICULAR EM ENGENHARIA AMBIENTAL", prereq: [] }
+        ],
 
-    "ENE0002": ["MAT0027","MAT0031"],
-    "ENE0273": [],
-    "ENM0174": ["ENE0243","ENE0172","IFD0179","ENE0001"],
+        "9º Nível": [
+            { codigo: "ENC0026", nome: "AVALIAÇÃO DE IMPACTOS E RISCOS AMBIENTAIS", prereq: [] },
+            { codigo: "ENC0028", nome: "PROJETO FINAL EM ENGENHARIA AMBIENTAL 1", prereq: [] }
+        ],
 
-    "FAV0215": ["IFD0067","IFD0192","CEL0019","CEL0054"],
+        "10º Nível": [
+            { codigo: "ENC0030", nome: "PROJETO FINAL EM ENGENHARIA AMBIENTAL 2", prereq: [] },
+            { codigo: "ENC0031", nome: "PLANEJAMENTO E GESTÃO AMBIENTAL", prereq: [] }
+        ],
 
-    "FCE0187": [],
-    "FGA0107": ["IFD0171","IFD0173"],
+        // -----------------------------------------
+        // TODAS AS OPTATIVAS EM UM BLOCO ÚNICO
+        // -----------------------------------------
 
-    "FTD0007": [],
+        "OPTATIVAS": [
 
-    "GEA0075": [],
+            { codigo: "CDS0007", nome: "INTRODUÇÃO AO DESENVOLVIMENTO SUSTENTÁVEL", prereq: [] },
+            { codigo: "CDS0008", nome: "MEIO AMBIENTE, CULTURA E SOCIEDADE", prereq: [] },
 
-    "IQD0051": [],
-    "IQD0063": ["IQD0058","IQD0061","IQD0051","IQD0262","IQD0263","IQD0259"],
-    "IQD0118": ["IQD0058","IQD0061","IQD0125"],
-    "IQD0282": ["IQD0257"],
+            { codigo: "CEL0019", nome: "BIOQUIMICA E BIOFISICA", prereq: [] },
+            { codigo: "CEL0054", nome: "BIOQUIMICA FUNDAMENTAL", prereq: [] },
 
-    "LIP0096": [],
-    "LIP0174": [],
+            { codigo: "CET0039", nome: "SUSTENTABILIDADE ÉTICA E TURISMO", prereq: [] },
 
-    "MAT0028": ["MAT0027"],
-    "MAT0048": ["MAT0026"],
+            { codigo: "CIC0007", nome: "INTRODUÇÃO À CIÊNCIA DA COMPUTAÇÃO", prereq: [] },
 
-    "TAU0013": []
-};
+            { codigo: "DEG0200", nome: "ATIVIDADE COMPLEMENTAR (15h)", prereq: [] },
+            { codigo: "DEG0201", nome: "ATIVIDADE COMPLEMENTAR (30h)", prereq: [] },
+            { codigo: "DEG0202", nome: "ATIVIDADE COMPLEMENTAR (45h)", prereq: [] },
+            { codigo: "DEG0203", nome: "ATIVIDADE COMPLEMENTAR (60h)", prereq: [] },
+            { codigo: "DEG0205", nome: "ATIVIDADE COMPLEMENTAR (90h)", prereq: [] },
+            { codigo: "DEG0206", nome: "ATIVIDADE COMPLEMENTAR (120h)", prereq: [] },
 
-// ======================================================
-// CONSTRUÇÃO DA INTERFACE
-// ======================================================
+            { codigo: "DEX0196", nome: "ATIVIDADE DE EXTENSÃO (15h)", prereq: [] },
+            { codigo: "DEX0197", nome: "ATIVIDADE DE EXTENSÃO (30h)", prereq: [] },
+            { codigo: "DEX0198", nome: "ATIVIDADE DE EXTENSÃO (45h)", prereq: [] },
+            { codigo: "DEX0199", nome: "ATIVIDADE DE EXTENSÃO (60h)", prereq: [] },
+            { codigo: "DEX0200", nome: "ATIVIDADE DE EXTENSÃO (90h)", prereq: [] },
+            { codigo: "DEX0201", nome: "ATIVIDADE DE EXTENSÃO (120h)", prereq: [] },
 
-function temTodosRequisitos(code) {
-    if (!prerequisitos[code] || prerequisitos[code].length === 0) return true;
-    return false; // por enquanto: ninguém está "cumprido"
-}
+            { codigo: "DSC0050", nome: "POLÍTICAS PÚBLICAS EM SAÚDE", prereq: [] },
+            { codigo: "DSC0063", nome: "DIREITO SANITÁRIO E LEGISLAÇÃO", prereq: [] },
 
-function criarCard(codigo) {
-    const card = document.createElement("div");
-    const bloqueado = !temTodosRequisitos(codigo);
+            { codigo: "ECL0030", nome: "FUNDAMENTOS DE ECOLOGIA E EVOLUÇÃO", prereq: [] },
+            { codigo: "ECL0036", nome: "EDUCAÇÃO AMBIENTAL", prereq: [] },
 
-    card.classList.add("course-card");
-    if (bloqueado) card.classList.add("locked");
+            { codigo: "EFL0010", nome: "INICIACAO A ENGENHARIA FLORESTAL", prereq: [] },
 
-    const title = document.createElement("div");
-    title.classList.add("course-code");
-    title.innerText = codigo;
+            { codigo: "ENC0003", nome: "SAÚDE, SANEAMENTO E MEIO AMBIENTE", prereq: [] },
+            { codigo: "ENC0011", nome: "MODELOS E SIMULAÇÃO DE SISTEMAS AMBIENTAIS", prereq: [] },
+            { codigo: "ENC0012", nome: "ECOSSISTEMAS AQUÁTICOS CONTINENTAIS", prereq: [] },
+            { codigo: "ENC0014", nome: "AVALIAÇÃO E CONTROLE DE POLUIÇÃO DO AR E SONORA", prereq: [] },
+            { codigo: "ENC0017", nome: "SOLOS TROPICAIS", prereq: [] },
+            { codigo: "ENC0018", nome: "BIOQUÍMICA APLICADA À ENGENHARIA AMBIENTAL", prereq: [] },
+            { codigo: "ENC0019", nome: "TRATAMENTO AVANÇADO DE ÁGUAS PARA CONSUMO HUMANO", prereq: [] },
+            { codigo: "ENC0020", nome: "TRATAMENTO AVANÇADO DE ÁGUAS RESIDUÁRIAS", prereq: [] },
+            { codigo: "ENC0021", nome: "TÓPICOS EM TRANSPORTE DE CONTAMINANTES", prereq: [] },
+            { codigo: "ENC0022", nome: "MODELOS DE POLUIÇÃO DIFUSA", prereq: [] },
+            { codigo: "ENC0023", nome: "AVALIAÇÃO AMBIENTAL ESTRATÉGICA", prereq: [] },
+            { codigo: "ENC0032", nome: "GESTÃO DE RECURSOS HÍDRICOS", prereq: [] },
+            { codigo: "ENC0033", nome: "RECUPERAÇÃO DE ÁREAS DEGRADADAS POR MINERAÇÃO", prereq: [] },
+            { codigo: "ENC0034", nome: "ENGENHARIA TERRITORIAL", prereq: [] },
+            { codigo: "ENC0044", nome: "SIG APLICADO AOS TRANSPORTES", prereq: [] },
+            { codigo: "ENC0046", nome: "TÓPICOS EM ENGENHARIA AMBIENTAL", prereq: [] },
+            { codigo: "ENC0050", nome: "GEOSSINTÉTICOS", prereq: [] },
+            { codigo: "ENC0051", nome: "SISTEMAS DE ESGOTO SANITÁRIO", prereq: [] },
+            { codigo: "ENC0064", nome: "TÓPICOS DE ENGENHARIA HIDRAULICA", prereq: [] },
+            { codigo: "ENC0162", nome: "HIDRAULICA - TÓPICOS ESPECIAIS", prereq: [] },
+            { codigo: "ENC0165", nome: "IRRIGAÇÃO E DRENAGEM", prereq: [] },
+            { codigo: "ENC0169", nome: "SISTEMAS HIDRAULICOS DE SANEAMENTO", prereq: [] },
+            { codigo: "ENC0172", nome: "AGUAS SUBTERRANEAS", prereq: [] },
+            { codigo: "ENC0180", nome: "SISTEMAS DE DRENAGEM URBANA", prereq: [] },
+            { codigo: "ENC0182", nome: "SISTEMAS HIDROVIÁRIOS", prereq: [] },
+            { codigo: "ENC0187", nome: "SISTEMA DE ABASTECIMENTO DE ÁGUA", prereq: [] },
+            { codigo: "ENC0188", nome: "INVESTIGAÇÕES GEOTÉCNICAS", prereq: [] },
 
-    card.appendChild(title);
+            { codigo: "ENC0208", nome: "DESENVOLVIMENTO URBANO", prereq: [] },
+            { codigo: "ENC0237", nome: "TÓPICOS EM GEOTECNIA 1", prereq: [] },
+            { codigo: "ENC0238", nome: "LAB GEOTECNIA 2", prereq: [] },
+            { codigo: "ENC0239", nome: "MÉTODOS COMPUTACIONAIS EM GEOTECNIA", prereq: [] },
+            { codigo: "ENC0245", nome: "MÉTODOS NUMERICOS EM HIDROLOGIA", prereq: [] },
 
-    if (prerequisitos[codigo].length > 0) {
-        const p = document.createElement("div");
-        p.classList.add("prereq");
-        p.innerText = "Pré-requisitos: " + prerequisitos[codigo].join(", ");
-        card.appendChild(p);
-    }
+            { codigo: "ENC0253", nome: "GESTÃO DA ÁGUA", prereq: [] },
+            { codigo: "ENC0256", nome: "REALIDADE VIRTUAL APLICADA", prereq: [] },
+            { codigo: "ENC0261", nome: "GESTÃO DE PROJETOS", prereq: [] },
 
-    return card;
-}
+            { codigo: "ENC0264", nome: "TRANSPORTE E MEIO AMBIENTE", prereq: [] },
+            { codigo: "ENC0271", nome: "MATERIAIS PARA CONSTRUÇÃO 1", prereq: [] },
+            { codigo: "ENC0279", nome: "ESTACAS TROCADORAS DE CALOR", prereq: [] },
 
-function montarTela() {
+            { codigo: "ENC0282", nome: "PLANEJAMENTO E GESTÃO DE SISTEMAS HÍDRICOS", prereq: [] },
+
+            { codigo: "ENE0002", nome: "LABORATÓRIO DE ELETRICIDADE", prereq: [] },
+            { codigo: "ENE0273", nome: "PLANEJAMENTO ENERGETICO", prereq: [] },
+
+            { codigo: "ENM0174", nome: "SISTEMAS ENERGETICOS", prereq: [] },
+            { codigo: "ENM0176", nome: "ECOLOGIA INDUSTRIAL", prereq: [] },
+
+            { codigo: "FAV0215", nome: "ENERGIA RENOVAVEL", prereq: [] },
+
+            { codigo: "FCE0187", nome: "EPIDEMIOLOGIA DESCRITIVA", prereq: [] },
+
+            { codigo: "FGA0107", nome: "ONDULATÓRIA E TÉRMICA", prereq: [] },
+
+            { codigo: "FTD0007", nome: "INTRODUÇÃO À ATIVIDADE EMPRESARIAL", prereq: [] },
+
+            { codigo: "GEA0068", nome: "POLÍTICA PUBLICA E MEIO AMBIENTE", prereq: [] },
+            { codigo: "GEA0075", nome: "GEOGRAFIA ECONOMICA DA ENERGIA", prereq: [] },
+
+            { codigo: "IQD0051", nome: "QUÍMICA GERAL", prereq: [] },
+            { codigo: "IQD0063", nome: "QUIMICA ANALITICA 1", prereq: [] },
+            { codigo: "IQD0118", nome: "QUIMICA ANALITICA QUALITATIVA", prereq: [] },
+            { codigo: "IQD0282", nome: "REAÇÕES QUÍMICAS E O AMBIENTE", prereq: [] },
+
+            { codigo: "LIP0096", nome: "LEITURA E PRODUÇÃO DE TEXTOS", prereq: [] },
+            { codigo: "LIP0174", nome: "LÍNGUA DE SINAIS BRASILEIRA - BÁSICO", prereq: [] },
+
+            { codigo: "MAT0028", nome: "VARIAVEL COMPLEXA 1", prereq: [] },
+            { codigo: "MAT0048", nome: "EQUACOES DIFERENCIAIS 1", prereq: [] },
+
+            { codigo: "TAU0013", nome: "PLANEJAMENTO URBANO", prereq: [] }
+
+        ]
+    };
+
     const container = document.getElementById("container");
 
-    Object.keys(temas).forEach(theme => {
-        const bloco = document.createElement("div");
-        bloco.classList.add("theme-block");
+    function criarTitulo(titulo) {
+        const div = document.createElement("div");
+        div.className = titulo === "OPTATIVAS" ? "grupo-titulo" : "semestre-titulo";
+        div.textContent = titulo;
+        div.addEventListener("click", () => {
+            const lista = div.nextSibling;
+            lista.style.display = lista.style.display === "block" ? "none" : "block";
+        });
+        return div;
+    }
 
-        const titulo = document.createElement("div");
-        titulo.classList.add("theme-title");
-        titulo.innerText = theme;
+    function criarCard(d) {
+        const card = document.createElement("div");
+        card.className = "card " + (d.optativa ? "optativa" : "");
 
-        bloco.appendChild(titulo);
+        card.innerHTML = `
+            <h3>${d.codigo} – ${d.nome}</h3>
+            <small>Pré-requisitos: ${d.prereq.length ? d.prereq.join(", ") : "Nenhum"}</small>
+        `;
 
-        temas[theme].forEach(cod => {
-            bloco.appendChild(criarCard(cod));
+        return card;
+    }
+
+    for (const bloco in matriz) {
+        container.appendChild(criarTitulo(bloco));
+
+        const lista = document.createElement("div");
+        lista.className = "disciplinas";
+
+        matriz[bloco].forEach(d => {
+            d.optativa = bloco === "OPTATIVAS";
+            lista.appendChild(criarCard(d));
         });
 
-        container.appendChild(bloco);
-    });
-}
-
-montarTela();
+        container.appendChild(lista);
+    }
+});
