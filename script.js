@@ -1,186 +1,201 @@
-// ===============================
-// MATRIZ COMPLETA SIGAA - JULIANA
-// ===============================
+// ======================================================
+// AGRUPAMENTO POR TEMAS
+// ======================================================
 
-const matriz = [
-    {
-        nivel: "1º Nível",
-        classe: "nivel1",
-        materias: [
-            { cod: "CEL0088", nome: "BIOLOGIA GERAL", horas: "60h" },
-            { cod: "ENC0263", nome: "INTRODUÇÃO À ENGENHARIA AMBIENTAL", horas: "30h" },
-            { cod: "IFD0171", nome: "FISICA 1", horas: "60h" },
-            { cod: "IFD0173", nome: "FISICA 1 EXPERIMENTAL", horas: "30h" },
-            { cod: "IGD0173", nome: "GEOLOGIA BÁSICA", horas: "60h" },
-            { cod: "IQD0125", nome: "QUIMICA GERAL TEORICA", horas: "60h" },
-            { cod: "MAT0025", nome: "CÁLCULO 1", horas: "90h" }
-        ]
-    },
+const temas = {
+    "Sustentabilidade": [
+        "CDS0007", "CDS0008", "CET0039", "GEA0068",
+        "ENC0281"
+    ],
+    "Biologia e Bioquímica": [
+        "CEL0019", "CEL0054", "ENC0018"
+    ],
+    "Computação e Modelagem": [
+        "CIC0007", "ENC0011", "ENC0022", "ENC0039",
+        "ENC0162"
+    ],
+    "Ecologia / Recursos Naturais": [
+        "ECL0030", "ECL0036", "ENC0012", "ENC0033",
+        "ENC0253"
+    ],
+    "Hidráulica / Recursos Hídricos": [
+        "ENC0017", "ENC0021", "ENC0032", "ENC0064",
+        "ENC0165", "ENC0169", "ENC0172", "ENC0180",
+        "ENC0182", "ENC0187", "ENC0245", "ENC0282"
+    ],
+    "Saneamento e Poluição": [
+        "ENC0003", "ENC0014", "ENC0019", "ENC0020",
+        "ENC0051"
+    ],
+    "Geotecnia e Solos": [
+        "ENC0188", "ENC0237", "ENC0238", "ENC0279",
+        "ENC0050"
+    ],
+    "Urbanismo / Território": [
+        "ENC0034", "ENC0208", "TAU0013"
+    ],
+    "Energia": [
+        "FAV0215", "ENM0174", "ENE0273"
+    ],
+    "Matemática / Química": [
+        "MAT0028", "MAT0048", "IQD0051", "IQD0063",
+        "IQD0118", "IQD0282"
+    ],
+    "Extensão e Atividades Complementares": [
+        "DEG0200", "DEG0201", "DEG0202", "DEG0203",
+        "DEG0205", "DEG0206",
+        "DEX0196", "DEX0197", "DEX0198", "DEX0199",
+        "DEX0200", "DEX0201"
+    ],
+    "Comunicação e Libras": [
+        "LIP0096", "LIP0174"
+    ]
+};
 
-    {
-        nivel: "2º Nível",
-        classe: "nivel2",
-        materias: [
-            { cod: "ECL0033", nome: "ECOLOGIA 1", horas: "60h" },
-            { cod: "ENC0053", nome: "DESENHO TECNICO", horas: "60h" },
-            { cod: "IFD0175", nome: "FISICA 2", horas: "60h", pre: ["IFD0171","IFD0173","MAT0025"] },
-            { cod: "IFD0177", nome: "FISICA 2 EXPERIMENTAL", horas: "60h", pre: ["IFD0171","IFD0173","MAT0025"] },
-            { cod: "MAT0026", nome: "CÁLCULO 2", horas: "90h", pre: ["MAT0025"] },
-            { cod: "MAT0031", nome: "INTRODUCAO A ALGEBRA LINEAR", horas: "60h" }
-        ]
-    },
+// ======================================================
+// PRÉ-REQUISITOS
+// ======================================================
 
-    {
-        nivel: "3º Nível",
-        classe: "nivel3",
-        materias: [
-            { cod: "ENC0035", nome: "INTRODUÇÃO À MECÂNICA DOS SÓLIDOS", horas: "60h", pre: ["IFD0175"] },
-            { cod: "ENC0240", nome: "LABORATÓRIO DE GEOTECNIA 1", horas: "30h" },
-            { cod: "ENC0241", nome: "GEOTECNIA 1", horas: "60h" },
-            { cod: "ENC0266", nome: "CLIMATOLOGIA APLICADA", horas: "60h" },
-            { cod: "ENC0267", nome: "CARTOGRAFIA E GEOPROCESSAMENTO APLICADO", horas: "60h" },
-            { cod: "ENC0268", nome: "CIÊNCIA DOS MATERIAIS", horas: "60h" },
-            { cod: "MAT0027", nome: "CÁLCULO 3", horas: "90h", pre: ["MAT0026"] }
-        ]
-    },
+const prerequisitos = {
+    "CDS0007": [],
+    "CDS0008": ["CDS0007"],
 
-    {
-        nivel: "4º Nível",
-        classe: "nivel4",
-        materias: [
-            { cod: "ENC0037", nome: "TRANSFERÊNCIA DE ENERGIA E MASSA", horas: "75h" },
-            { cod: "ENC0235", nome: "GEOTECNIA 2", horas: "60h" },
-            { cod: "ENC0269", nome: "MICROBIOLOGIA AMBIENTAL", horas: "30h" },
-            { cod: "ENC0270", nome: "MICROBIOLOGIA AMBIENTAL E EXPERIMENTAL", horas: "30h" },
-            { cod: "ENC0272", nome: "ASPECTOS QUÍMICOS DE QUALIDADE DA ÁGUA", horas: "30h" },
-            { cod: "ENC0273", nome: "ASPECTOS QUÍMICOS DE QUALIDADE DE ÁGUA-EXPERIMENTAL", horas: "30h" }
-        ]
-    },
+    "CEL0019": ["IQD0051"],
+    "CEL0054": ["IQD0072","IQD0095","IQD0209","IQD0252","IQD0245","IQD0131","IQD0051","CEL0067","IQD0153","IQD0058","IQD0061","IQD0125"],
 
-    {
-        nivel: "5º Nível",
-        classe: "nivel5",
-        materias: [
-            { cod: "ENC0183", nome: "GEOTECNIA AMBIENTAL", horas: "60h" },
-            { cod: "ENC0251", nome: "HIDRAULICA - TEORIA", horas: "60h" },
-            { cod: "ENC0252", nome: "HIDRAULICA EXPERIMENTAL", horas: "30h" },
-            { cod: "ENC0274", nome: "ESTATÍSTICA APLICADA À ENGENHARIA AMBIENTAL", horas: "60h" },
-            { cod: "ENC0275", nome: "MÉTODOS COMPUTACIONAIS EM ENGENHARIA AMBIENTAL", horas: "90h" },
-            { cod: "SOL0042", nome: "INTRODUÇÃO À SOCIOLOGIA", horas: "60h" }
-        ]
-    },
+    "CIC0007": [],
 
-    {
-        nivel: "6º Nível",
-        classe: "nivel6",
-        materias: [
-            { cod: "ENC0001", nome: "CINÉTICA, PROCESSOS E OPERAÇÕES UNITÁRIAS", horas: "60h" },
-            { cod: "ENC0002", nome: "ASPECTOS ECONÔMICOS DA ENGENHARIA AMBIENTAL", horas: "30h" },
-            { cod: "ENC0166", nome: "HIDROLOGIA APLICADA", horas: "60h" },
-            { cod: "ENE0001", nome: "ELETRICIDADE BÁSICA", horas: "60h" },
-            { cod: "EPR0068", nome: "ORGANIZAÇÃO INDUSTRIAL", horas: "60h" }
-        ]
-    },
+    "CET0039": [],
+    "DEG0200": [], "DEG0201": [], "DEG0202": [], "DEG0203": [],
+    "DEG0205": [], "DEG0206": [],
 
-    {
-        nivel: "7º Nível",
-        classe: "nivel7",
-        materias: [
-            { cod: "ENC0004", nome: "SANEAMENTO, MEIO AMBIENTE E PLANEJAMENTO URBANO", horas: "60h" },
-            { cod: "ENC0007", nome: "TRATAMENTO DE ÁGUAS RESIDUÁRIAS URBANAS", horas: "60h" },
-            { cod: "ENC0010", nome: "TRATAMENTO DE ÁGUA PARA CONSUMO HUMANO", horas: "60h" },
-            { cod: "ENC0052", nome: "RESÍDUOS SÓLIDOS URBANOS", horas: "60h" },
-            { cod: "EPR0059", nome: "HIGIENE E SEGURANÇA DO TRABALHO", horas: "30h" },
-            { cod: "FDD0282", nome: "FUNDAMENTOS DO DIREITO AMBIENTAL", horas: "60h" }
-        ]
-    },
+    "DEX0196": [], "DEX0197": [], "DEX0198": [], "DEX0199": [],
+    "DEX0200": [], "DEX0201": [],
 
-    {
-        nivel: "8º Nível",
-        classe: "nivel8",
-        materias: [
-            { cod: "ENC0013", nome: "INTRODUÇÃO À ANÁLISE DE SISTEMAS AMBIENTAIS", horas: "30h" },
-            { cod: "ENC0015", nome: "AVALIAÇÃO E CONTROLE DE POLUIÇÃO DA ÁGUA", horas: "60h" },
-            { cod: "ENC0016", nome: "AVALIAÇÃO E CONTROLE DE POLUIÇÃO DO SOLO", horas: "60h" },
-            { cod: "ENC0025", nome: "ESTÁGIO CURRICULAR EM ENGENHARIA AMBIENTAL", horas: "30h" }
-        ]
-    },
+    "ECL0030": [],
+    "ECL0036": [],
 
-    {
-        nivel: "9º Nível",
-        classe: "nivel9",
-        materias: [
-            { cod: "ENC0026", nome: "AVALIAÇÃO DE IMPACTOS E RISCOS AMBIENTAIS", horas: "60h" },
-            { cod: "ENC0028", nome: "PROJETO FINAL EM ENGENHARIA AMBIENTAL 1", horas: "15h" }
-        ]
-    },
+    "EFL0010": [],
 
-    {
-        nivel: "10º Nível",
-        classe: "nivel10",
-        materias: [
-            { cod: "ENC0030", nome: "PROJETO FINAL EM ENGENHARIA AMBIENTAL 2", horas: "30h" },
-            { cod: "ENC0031", nome: "PLANEJAMENTO E GESTÃO AMBIENTAL", horas: "60h" }
-        ]
-    },
+    "ENC0003": ["ENC0269","SOL0042"],
+    "ENC0011": ["ENC0166","ENC0275"],
+    "ENC0012": ["ENC0269"],
+    "ENC0014": ["ENC0266","ENM0080","ENM0140","ENC0037"],
+    "ENC0017": ["ENC0235"],
+    "ENC0018": ["ENC0269","IQD0125"],
+    "ENC0019": ["ENC0251","ENC0001","ENC0168"],
+    "ENC0020": ["ENC0251","ENC0001","ENC0168"],
+    "ENC0021": ["ENC0016"],
+    "ENC0022": ["ENC0166","ENC0016","ENC0015"],
+    "ENC0023": ["ENC0026","ENC0267"],
+    "ENC0032": ["ENC0016"],
+    "ENC0033": ["ENC0183"],
+    "ENC0034": [],
+    "ENC0044": [],
+    "ENC0046": [],
+    "ENC0050": ["ENC0235"],
+    "ENC0051": ["ENC0169","ENC0251","ENC0252"],
+    "ENC0064": ["ENC0251","ENC0252"],
+    "ENC0162": ["ENC0166","ENC0167","ENC0251","ENC0252"],
+    "ENC0165": ["ENC0166","ENC0167","ENC0251","ENC0252"],
+    "ENC0169": ["ENC0166","ENC0167","ENC0251","ENC0252"],
+    "ENC0172": ["ENC0166","ENC0167","ENC0251","ENC0252"],
+    "ENC0180": [],
+    "ENC0182": ["ENC0167","ENC0251","ENC0252"],
+    "ENC0187": ["ENC0166","ENC0167","ENC0251","ENC0252"],
+    "ENC0188": ["ENC0195","ENC0249","ENC0250","ENC0241","ENC0240"],
+    "ENC0208": [],
+    "ENC0237": ["ENC0235"],
+    "ENC0238": ["ENC0240","ENC0241"],
+    "ENC0239": ["ENC0197","ENC0235","ENC0121"],
+    "ENC0245": ["ENC0166","ENC0167","ENC0251","ENC0252"],
+    "ENC0253": ["ECL0014","ECL0033","ECL0030"],
+    "ENC0256": [],
+    "ENC0261": ["ENC0246","ENM0143","ENE0155","EFL0010","ENE0274","ENM0133","ENC0263"],
+    "ENC0264": ["ENC0227","ENC0267"],
+    "ENC0271": ["TEC0026","ENC0268"],
+    "ENC0279": ["ENM0080","ENC0235","ENC0037"],
+    "ENC0281": ["ENC0268","ENC0052"],
+    "ENC0282": ["ENC0166"],
 
-    {
-        nivel: "Optativas",
-        classe: "optativas",
-        materias: [
-            // (as mais de 100 optativas completas que você enviou)
-            // Para não quebrar o limite, deixo pronto o campo abaixo:
-            // Basta você colar todas aqui se quiser EXIBIR todas,
-            // mas a estrutura já está funcionando.
+    "ENE0002": ["MAT0027","MAT0031"],
+    "ENE0273": [],
+    "ENM0174": ["ENE0243","ENE0172","IFD0179","ENE0001"],
 
-            { cod: "CDS0007", nome: "INTRODUÇÃO AO DESENVOLVIMENTO SUSTENTÁVEL", horas: "60h" },
-            { cod: "CDS0008", nome: "MEIO AMBIENTE, CULTURA E SOCIEDADE", horas: "60h" },
-            { cod: "CEL0019", nome: "BIOQUIMICA E BIOFISICA", horas: "135h" },
-            { cod: "CEL0054", nome: "BIOQUIMICA FUNDAMENTAL", horas: "90h" },
-            { cod: "CET0039", nome: "SUSTENTABILIDADE ÉTICA E TURISMO", horas: "60h" },
-            { cod: "CIC0007", nome: "INTRODUÇÃO À CIÊNCIA DA COMPUTAÇÃO", horas: "60h" },
+    "FAV0215": ["IFD0067","IFD0192","CEL0019","CEL0054"],
 
-            // (... siga colando as demais optativas aqui ...)
-        ]
+    "FCE0187": [],
+    "FGA0107": ["IFD0171","IFD0173"],
+
+    "FTD0007": [],
+
+    "GEA0075": [],
+
+    "IQD0051": [],
+    "IQD0063": ["IQD0058","IQD0061","IQD0051","IQD0262","IQD0263","IQD0259"],
+    "IQD0118": ["IQD0058","IQD0061","IQD0125"],
+    "IQD0282": ["IQD0257"],
+
+    "LIP0096": [],
+    "LIP0174": [],
+
+    "MAT0028": ["MAT0027"],
+    "MAT0048": ["MAT0026"],
+
+    "TAU0013": []
+};
+
+// ======================================================
+// CONSTRUÇÃO DA INTERFACE
+// ======================================================
+
+function temTodosRequisitos(code) {
+    if (!prerequisitos[code] || prerequisitos[code].length === 0) return true;
+    return false; // por enquanto: ninguém está "cumprido"
+}
+
+function criarCard(codigo) {
+    const card = document.createElement("div");
+    const bloqueado = !temTodosRequisitos(codigo);
+
+    card.classList.add("course-card");
+    if (bloqueado) card.classList.add("locked");
+
+    const title = document.createElement("div");
+    title.classList.add("course-code");
+    title.innerText = codigo;
+
+    card.appendChild(title);
+
+    if (prerequisitos[codigo].length > 0) {
+        const p = document.createElement("div");
+        p.classList.add("prereq");
+        p.innerText = "Pré-requisitos: " + prerequisitos[codigo].join(", ");
+        card.appendChild(p);
     }
-];
 
-// =======================
-// GERAR CARDS NA TELA
-// =======================
+    return card;
+}
 
-function gerar() {
+function montarTela() {
     const container = document.getElementById("container");
 
-    matriz.forEach(nivel => {
-        // título do nível
-        const h2 = document.createElement("h2");
-        h2.className = "level-title";
-        h2.textContent = nivel.nivel;
-        container.appendChild(h2);
+    Object.keys(temas).forEach(theme => {
+        const bloco = document.createElement("div");
+        bloco.classList.add("theme-block");
 
-        // grid
-        const grid = document.createElement("div");
-        grid.className = "grid";
+        const titulo = document.createElement("div");
+        titulo.classList.add("theme-title");
+        titulo.innerText = theme;
 
-        // cards
-        nivel.materias.forEach(mat => {
-            const card = document.createElement("div");
-            card.className = `card ${nivel.classe}`;
+        bloco.appendChild(titulo);
 
-            const check = document.createElement("input");
-            check.type = "checkbox";
-
-            const label = document.createElement("label");
-            label.innerHTML = `<strong>${mat.cod}</strong> - ${mat.nome} (${mat.horas})`;
-
-            card.appendChild(check);
-            card.appendChild(label);
-            grid.appendChild(card);
+        temas[theme].forEach(cod => {
+            bloco.appendChild(criarCard(cod));
         });
 
-        container.appendChild(grid);
+        container.appendChild(bloco);
     });
 }
 
-gerar();
+montarTela();
