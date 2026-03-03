@@ -47,7 +47,7 @@ h2 {
     box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
 }
 
-/* Legenda original */
+/* Legenda de Cores da UnB */
 .vermelho { background-color: #ff4d4d; }
 .laranja { background-color: #ff944d; }
 .amarelo { background-color: #ffdb4d; }
@@ -57,28 +57,7 @@ h2 {
 .roxo { background-color: #b366ff; }
 .branco { background-color: #ffffff; }
 
-/* Materias optativas — apenas acrescentado */
-.optativas-container {
-    border-top: 3px solid #30363d;
-    margin-top: 25px;
-    padding-top: 25px;
-}
-
-.optativa-bloco {
-    min-width: 320px;
-    background-color: #1a1f27;
-    border: 1px dashed #3b4450;
-    border-radius: 12px;
-    padding: 15px;
-}
-
-.materia.optativa {
-    background-color: #222933 !important;
-    border: 1px dashed #3b4450;
-    color: #c9d1d9 !important;
-}
-
-/* Estados visuais originais */
+/* Estados Visuais */
 .concluida {
     opacity: 0.3 !important;
     filter: grayscale(0.7);
@@ -96,4 +75,38 @@ input[type="checkbox"] {
     width: 22px;
     height: 22px;
     cursor: pointer;
+}
+
+/* --------------------------------------------- */
+/*  🔵 NOVA SEÇÃO: ESTILOS PARA OPTATIVAS        */
+/* --------------------------------------------- */
+
+.optativas-container {
+    border-top: 3px solid #30363d;
+    margin-top: 25px;
+    padding-top: 25px;
+}
+
+.optativa-bloco {
+    min-width: 320px;
+    background-color: #1a1f27;
+    border: 1px dashed #3b4450;
+    border-radius: 12px;
+    padding: 15px;
+    margin-right: 20px;
+}
+
+.optativa-bloco h2 {
+    color: #9eafff;
+    border-bottom: 2px dashed #3b4450;
+}
+
+.materia.optativa {
+    border: 1px dashed #3b4450;
+    background-color: #222933;
+    color: #c9d1d9;
+}
+
+.materia.optativa input[type="checkbox"] {
+    accent-color: #9eafff;
 }
