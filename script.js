@@ -175,43 +175,6 @@ document.querySelectorAll('input').forEach(chk => {
     chk.addEventListener('change', function() {
         this.parentElement.classList.toggle('concluida', this.checked);
         verificarGrade();
-
-        document.addEventListener("DOMContentLoaded", () => {
-    const materias = document.querySelectorAll(".materia");
-
-    // cria cache com códigos concluídos
-    function atualizarBloqueios() {
-        const concluidas = Array.from(document.querySelectorAll(".materia input:checked"))
-            .map(input => input.closest(".materia").dataset.codigo);
-
-        materias.forEach(m => {
-            const prereq = m.dataset.prerequisitos;
-
-            if (!prereq) return;
-
-            const lista = prereq.split(",");
-
-            const podeFazer = lista.every(cod => concluidas.includes(cod.trim()));
-
-            const checkbox = m.querySelector("input");
-
-            checkbox.disabled = !podeFazer;
-        });
-    }
-
-    materias.forEach(m => {
-        m.querySelector("input").addEventListener("change", () => {
-            if (m.querySelector("input").checked) {
-                m.classList.add("concluida");
-            } else {
-                m.classList.remove("concluida");
-            }
-            atualizarBloqueios();
-        });
-    });
-
-    atualizarBloqueios();
-});
     });
 });
 
