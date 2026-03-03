@@ -261,6 +261,107 @@
 
 </main>
 
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Grade Curricular</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Grade Curricular — Engenharia Ambiental</h1>
+</header>
+
+<div id="grade-container">
+
+    <!-- EXEMPLO DE BLOCO DE OBRIGATÓRIAS -->
+    <div class="semestre">
+        <h2>1º Semestre</h2>
+
+        <div class="materia azul" data-codigo="IFD0171">
+            <span>Física 1 (IFD0171)</span>
+            <input type="checkbox">
+        </div>
+
+        <div class="materia azul" data-codigo="IFD0173">
+            <span>Laboratório de Física 1 (IFD0173)</span>
+            <input type="checkbox">
+        </div>
+
+        <div class="materia vermelho" data-codigo="MAT0025">
+            <span>Cálculo 1 (MAT0025)</span>
+            <input type="checkbox">
+        </div>
+
+    </div>
+
+    <!-- EXEMPLO OBRIGATÓRIA COM PRÉ-REQUISITOS -->
+    <div class="semestre">
+        <h2>2º Semestre</h2>
+
+        <div class="materia verde" data-codigo="IFD0200" data-prerequisitos="IFD0171,IFD0173,MAT0025">
+            <span>Física 2 (IFD0200)</span>
+            <input type="checkbox">
+        </div>
+
+        <div class="materia verde" data-codigo="IFD0201" data-prerequisitos="IFD0171,IFD0173,MAT0025">
+            <span>Física 2 Experimental (IFD0201)</span>
+            <input type="checkbox">
+        </div>
+
+    </div>
+
+
+    <!-- NOVO BLOCO DE OPTATIVAS (COM PRÉ-REQUISITOS ENTRE ELAS TAMBÉM) -->
+    <div class="optativas-container">
+
+        <div class="optativa-bloco">
+            <h2>Optativas — Grupo A</h2>
+
+            <div class="materia optativa roxo" 
+                 data-codigo="OPT100"
+                 data-prerequisitos="MAT0025">
+                <span>Optativa A1 (OPT100)</span>
+                <input type="checkbox">
+            </div>
+
+            <div class="materia optativa roxo" 
+                 data-codigo="OPT110"
+                 data-prerequisitos="OPT100">
+                <span>Optativa A2 (OPT110)</span>
+                <input type="checkbox">
+            </div>
+
+        </div>
+
+        <div class="optativa-bloco">
+            <h2>Optativas — Grupo B</h2>
+
+            <div class="materia optativa laranja"
+                 data-codigo="OPT200">
+                <span>Optativa B1 (OPT200)</span>
+                <input type="checkbox">
+            </div>
+
+            <div class="materia optativa laranja"
+                 data-codigo="OPT210"
+                 data-prerequisitos="OPT200,IFD0171">
+                <span>Optativa B2 (OPT210)</span>
+                <input type="checkbox">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
 <script src="script.js"></script>
 </body>
 </html>
