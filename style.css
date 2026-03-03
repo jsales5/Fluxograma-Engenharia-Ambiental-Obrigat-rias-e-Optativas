@@ -1,46 +1,108 @@
 body {
-    background: #000;
-    color: #fff;
-    font-family: Arial, sans-serif;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
     padding: 20px;
 }
 
-h1 {
-    text-align: center;
-    color: #4FC3F7;
-    margin-bottom: 40px;
+header { 
+    text-align: center; 
+    margin-bottom: 25px; 
 }
 
-.titulo-bloco {
-    background: #111;
-    border: 1px solid #444;
+#grade-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 40px;
+}
+
+.semestre {
+    min-width: 320px;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 15px;
+    flex-shrink: 0;
+}
+
+h2 {
+    color: #58a6ff;
+    font-size: 1.2rem;
+    text-align: center;
+    border-bottom: 2px solid #30363d;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.materia {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 12px;
-    margin-top: 25px;
-    font-size: 22px;
+    margin: 10px 0;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #000;
+    transition: 0.4s;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Legenda de Cores da UnB */
+.vermelho { background-color: #ff4d4d; }
+.laranja { background-color: #ff944d; }
+.amarelo { background-color: #ffdb4d; }
+.azul { background-color: #4da6ff; }
+.verde { background-color: #4dff88; }
+.cinza { background-color: #8c8c8c; }
+.roxo { background-color: #b366ff; }
+.branco { background-color: #ffffff; }
+
+/* Estados Visuais */
+.concluida {
+    opacity: 0.3 !important;
+    filter: grayscale(0.7);
+    text-decoration: line-through;
+    transform: scale(0.95);
+}
+
+.materia:has(input:disabled) {
+    opacity: 0.15;
+    filter: grayscale(1);
+    pointer-events: none;
+}
+
+input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
     cursor: pointer;
 }
 
-.lista {
-    display: none;
-    padding: 10px 0;
+/* --------------------------------------------------------
+   🌿 ESTILO PARA O BLOCO DAS OPTATIVAS (NOVO)
+-------------------------------------------------------- */
+
+.optativas-container {
+    min-width: 320px;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 15px;
+    flex-shrink: 0;
 }
 
-.card {
-    background: #1a1a1a;
-    border-left: 6px solid #4CAF50;
-    padding: 10px;
-    margin-bottom: 12px;
+.optativas-titulo {
+    color: #9b59b6; /* lilás para diferenciar dos semestres */
+    font-size: 1.2rem;
+    text-align: center;
+    border-bottom: 2px solid #30363d;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
 }
 
-.card.optativa {
-    border-left: 6px solid #ff9800;
-}
-
-.card h3 {
-    margin: 0;
-    font-size: 16px;
-}
-
-.card small {
-    color: #ccc;
+/* Optativas usam exatamente o MESMO estilo das obrigatórias */
+.optativas-container .materia {
+    border-left: 6px solid #9b59b6;
 }
