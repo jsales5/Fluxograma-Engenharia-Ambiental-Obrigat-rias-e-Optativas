@@ -58,14 +58,14 @@ const dependencias = {
     'ENC0030': ['ENC0028'],
     'ENC0031': ['FDD0282', 'ENC0016', 'ENC0015'],
 
-    // --- OPTATIVAS ---
+    // --- OPTATIVAS (Dependências Adicionadas) ---
     'CDS0008': ['CDS0007'],
     'CEL0019': ['IQD0051'],
-    'CEL0054': ['IQD0125'], 
+    'CEL0054': ['IQD0125'],
     'ENC0003': ['ENC0269', 'SOL0042'],
     'ENC0011': ['ENC0166', 'ENC0275'],
     'ENC0012': ['ENC0269'],
-    'ENC0014': ['ENC0037'],
+    'ENC0014': ['ENC0037'], 
     'ENC0017': ['ENC0235'],
     'ENC0018': ['ENC0269', 'IQD0125'],
     'ENC0019': ['ENC0251', 'ENC0001'],
@@ -90,11 +90,10 @@ const dependencias = {
     'ENC0239': ['ENC0235'],
     'ENC0245': ['ENC0251', 'ENC0252', 'ENC0166'],
     'ENC0253': ['ECL0033'],
-    'ENC0261': ['ENC0263'],
     'ENC0264': ['ENC0267'],
     'ENC0271': ['ENC0268'],
     'ENC0279': ['ENC0037', 'ENC0235'],
-    'ENC0281': [['ENC0268'], ['ENC0052']], 
+    'ENC0281': ['ENC0268'],
     'ENC0282': ['ENC0166'],
     'ENE0002': ['MAT0027', 'MAT0031'],
     'ENM0174': ['ENE0001'],
@@ -117,7 +116,6 @@ function verificarGrade() {
         const input = divMateria.querySelector('input');
         const listaReqs = dependencias[idAlvo];
 
-        // Lógica de verificação
         const habilitada = listaReqs.every(reqId => {
             const reqInput = document.querySelector(`#${reqId} input`);
             return reqInput && reqInput.checked;
@@ -125,13 +123,11 @@ function verificarGrade() {
 
         if (habilitada) {
             input.disabled = false;
-            divMateria.classList.remove('bloqueada');
         } else {
             if (!input.disabled || input.checked) {
                 input.disabled = true;
                 input.checked = false;
                 divMateria.classList.remove('concluida');
-                divMateria.classList.add('bloqueada');
                 mudancaDetectada = true;
             }
         }
