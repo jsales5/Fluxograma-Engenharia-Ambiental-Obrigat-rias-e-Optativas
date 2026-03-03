@@ -47,4 +47,15 @@ header { text-align: center; margin-bottom: 20px; }
 .concluida { opacity: 0.2; text-decoration: line-through; filter: grayscale(1); }
 .materia:has(input:disabled) { opacity: 0.05; pointer-events: none; }
 
-.divisor { border: 0; height: 1px; background: #30363d; margin: 30px 0; }
+
+#optativas-container .semestre {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+
+.materia {
+    min-height: 45px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
