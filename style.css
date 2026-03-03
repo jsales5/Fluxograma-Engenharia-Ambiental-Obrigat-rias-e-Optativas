@@ -4,15 +4,19 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
+    line-height: 1.5;
 }
 
 header { text-align: center; margin-bottom: 25px; }
+h1 { color: #58a6ff; margin-bottom: 5px; }
+h3 { color: #8b949e; margin-top: 0; font-weight: normal; }
 
 #grade-container, #optativas-container {
     display: flex;
     gap: 20px;
     overflow-x: auto;
     padding-bottom: 40px;
+    scroll-behavior: smooth;
 }
 
 .semestre, .semestre-opt {
@@ -22,14 +26,15 @@ header { text-align: center; margin-bottom: 25px; }
     border-radius: 12px;
     padding: 15px;
     flex-shrink: 0;
+    box-sizing: border-box;
 }
 
-h2 {
+h2, h4 {
     color: #58a6ff;
     font-size: 1.2rem;
     text-align: center;
     border-bottom: 2px solid #30363d;
-    margin-bottom: 15px;
+    margin: 0 0 15px 0;
     padding-bottom: 10px;
 }
 
@@ -40,49 +45,70 @@ h2 {
     padding: 12px;
     margin: 10px 0;
     border-radius: 8px;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: bold;
-    color: #000;
-    transition: 0.4s;
+    color: #000000; /* Texto preto para contraste nas cores claras */
+    transition: 0.4s ease;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    border: 1px solid rgba(0,0,0,0.1);
 }
 
-/* Legenda de Cores da UnB */
+/* --- LEGENDA DE CORES (Base UnB Ajustada) --- */
 .vermelho { background-color: #ff4d4d; }
 .laranja { background-color: #ff944d; }
 .amarelo { background-color: #ffdb4d; }
-.azul { background-color: #4da6ff; }
-.verde { background-color: #4dff88; }
-.cinza { background-color: #8c8c8c; }
-.roxo { background-color: #b366ff; }
-.branco { background-color: #ffffff; }
+.azul    { background-color: #4da6ff; }
+.verde   { background-color: #4dff88; }
+.roxo    { background-color: #b366ff; }
+/* AJUSTE: Onde era cinza, agora é branco */
+.branco  { background-color: #ffffff; color: #000000 !important; }
 
-/* Estados Visuais */
+/* --- ESTADOS VISUAIS (Interação e Bloqueio) --- */
+
+/* 1. Estado: Matéria Concluída (Check) */
 .concluida {
-    opacity: 0.3 !important;
-    filter: grayscale(0.7);
+    opacity: 0.25 !important;
+    filter: grayscale(0.8) !important;
     text-decoration: line-through;
-    transform: scale(0.95);
+    transform: scale(0.96);
+    box-shadow: none !important;
 }
 
-/* Bloqueio de dependência via CSS moderno */
+/* 2. Estado: Matéria Bloqueada (Pré-requisitos não cumpridos) */
 .materia:has(input:disabled), .materia-opt:has(input:disabled) {
-    opacity: 0.15;
+    opacity: 0.1;
     filter: grayscale(1);
-    pointer-events: none;
+    pointer-events: none; /* Impede qualquer interação ou clique */
     cursor: not-allowed;
 }
 
+/* --- ELEMENTOS DE INTERAÇÃO --- */
 input[type="checkbox"] {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
+    margin-left: 10px;
+    accent-color: #2ea043; /* Cor verde do GitHub para o check */
 }
 
-/* Títulos das seções */
+/* --- TÍTULOS DE SEÇÃO --- */
 .titulo-secao {
     text-align: center;
-    margin-top: 40px;
-    font-size: 1.5rem;
+    margin: 50px 0 30px 0;
+    font-size: 1.8rem;
     color: #4dff88;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Scrollbar estilizada para Webkit */
+#grade-container::-webkit-scrollbar, #optativas-container::-webkit-scrollbar {
+    height: 8px;
+}
+#grade-container::-webkit-scrollbar-thumb, #optativas-container::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 10px;
+}
+#grade-container::-webkit-scrollbar-track, #optativas-container::-webkit-scrollbar-track {
+    background: #161b22;
 }
