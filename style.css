@@ -6,7 +6,10 @@ body {
     padding: 20px;
 }
 
-header { text-align: center; margin-bottom: 25px; }
+header { 
+    text-align: center; 
+    margin-bottom: 25px; 
+}
 
 #grade-container {
     display: flex;
@@ -77,36 +80,29 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-/* --------------------------------------------- */
-/*  🔵 NOVA SEÇÃO: ESTILOS PARA OPTATIVAS        */
-/* --------------------------------------------- */
+/* --------------------------------------------------------
+   🌿 ESTILO PARA O BLOCO DAS OPTATIVAS (NOVO)
+-------------------------------------------------------- */
 
 .optativas-container {
-    border-top: 3px solid #30363d;
-    margin-top: 25px;
-    padding-top: 25px;
-}
-
-.optativa-bloco {
     min-width: 320px;
-    background-color: #1a1f27;
-    border: 1px dashed #3b4450;
+    background-color: #161b22;
+    border: 1px solid #30363d;
     border-radius: 12px;
     padding: 15px;
-    margin-right: 20px;
+    flex-shrink: 0;
 }
 
-.optativa-bloco h2 {
-    color: #9eafff;
-    border-bottom: 2px dashed #3b4450;
+.optativas-titulo {
+    color: #9b59b6; /* lilás para diferenciar dos semestres */
+    font-size: 1.2rem;
+    text-align: center;
+    border-bottom: 2px solid #30363d;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
 }
 
-.materia.optativa {
-    border: 1px dashed #3b4450;
-    background-color: #222933;
-    color: #c9d1d9;
-}
-
-.materia.optativa input[type="checkbox"] {
-    accent-color: #9eafff;
+/* Optativas usam exatamente o MESMO estilo das obrigatórias */
+.optativas-container .materia {
+    border-left: 6px solid #9b59b6;
 }
